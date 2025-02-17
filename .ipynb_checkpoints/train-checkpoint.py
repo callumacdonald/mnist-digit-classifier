@@ -10,14 +10,27 @@ batch_size = 64
 learning_rate = 0.001
 epochs = 5
 
-# Load MNIST dataset
-transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5,), (0.5,))])
+# Load MNIST dataset (for basic feed forward algo)
+#transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5,), (0.5,))])
+
+#trainset = torchvision.datasets.MNIST(root='./data', train=True, download=True, transform=transform)
+#trainloader = torch.utils.data.DataLoader(trainset, batch_size=batch_size, shuffle=True)
+
+#testset = torchvision.datasets.MNIST(root='./data', train=False, download=True, transform=transform)
+#testloader = torch.utils.data.DataLoader(testset, batch_size=batch_size, shuffle=False)
+
+# Load MNIST dataset (for CNN)
+transform = transforms.Compose([
+    transforms.ToTensor(),
+    transforms.Normalize((0.5,), (0.5,))
+])
 
 trainset = torchvision.datasets.MNIST(root='./data', train=True, download=True, transform=transform)
-trainloader = torch.utils.data.DataLoader(trainset, batch_size=batch_size, shuffle=True)
+trainloader = torch.utils.data.DataLoader(trainset, batch_size=64, shuffle=True)
 
 testset = torchvision.datasets.MNIST(root='./data', train=False, download=True, transform=transform)
-testloader = torch.utils.data.DataLoader(testset, batch_size=batch_size, shuffle=False)
+testloader = torch.utils.data.DataLoader(testset, batch_size=64, shuffle=False)
+
 
 # Define a simple neural network
 class SimpleNN(nn.Module):
